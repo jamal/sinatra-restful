@@ -1,0 +1,42 @@
+= sinatra-restful
+
+Create RESTful APIs with Sinatra.
+
+== Status
+
+sinatra-restful is still in its infancy, and has a lot of features that are missing. Please check back for updates.
+
+== Features
+
+The following features are currently supported by sinatra-restful:
+
+ * QPS Throttling (currently only by IP, app and user throttling is planned)
+ * Compression using Rack::Deflater
+ * Versioning
+
+== Example
+
+  require 'rubygems'
+  require 'sinatra'
+  require 'sinatra/restful'
+
+  use Sinatra::Rest::Throttle::Interval, :value => 5
+  use Sinatra::Rest::Compression
+
+  get '/note/:id', :version => "1.1" do
+    # ...
+  end
+
+  get '/note/:id', :version => "1" do
+    # ...
+  end
+
+  post '/note' do
+    # ...
+    status 201
+  end
+
+== License
+
+Copyright (c) 2013 Jamal Fanaian, relased under the MIT license
+See LICENSE for more information
