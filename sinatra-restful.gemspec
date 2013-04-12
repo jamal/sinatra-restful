@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
     s.description = "Sinatra extension to make RESTful APIs super simple"
     s.authors     = ["Jamal Fanaian"]
     s.email       = 'j@jamalfanaian.com'
-    s.files       = ["lib/sinatra/rest.rb"]
+    s.files       = ["lib/sinatra/restful.rb"]
     s.homepage    = 'http://github.com/jamal/sinatra-rest'
 end
