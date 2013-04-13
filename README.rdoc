@@ -10,9 +10,17 @@ sinatra-restful is still in its infancy, and has a lot of features that are miss
 
 The following features are currently supported by sinatra-restful:
 
- * QPS Throttling (currently only by IP, app and user throttling is planned)
- * Compression using Rack::Deflater
- * Versioning
+* QPS Throttling (currently only by IP, app and user throttling is planned)
+* Compression using Rack::Deflater
+* Versioning
+
+== Todo
+
+* OAuth2
+* Support for multiple content types (json, xml, etc.)
+* Pagination
+* Partial responses
+* Method whitelisting
 
 == Example
 
@@ -20,7 +28,7 @@ The following features are currently supported by sinatra-restful:
   require 'sinatra'
   require 'sinatra/restful'
 
-  use Sinatra::Rest::Throttle::Interval, :value => 5
+  use Sinatra::Rest::Throttle::Qps, :value => 5
   use Sinatra::Rest::Compression
 
   get '/note/:id', :version => "1.1" do
