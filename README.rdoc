@@ -22,7 +22,11 @@ The following features are currently supported by sinatra-restful:
 * Partial responses
 * Method whitelisting
 
-== Example
+== Usage
+
+Install the gem:
+
+  gem install sinatra-restful
 
 Example using the classic style:
 
