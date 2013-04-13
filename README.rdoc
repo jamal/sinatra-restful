@@ -107,5 +107,5 @@ Then, we are ready to make a request!
 
 == License
 
-Copyright (c) 2013 Jamal Fanaian, relased under the MIT license
-See LICENSE for more information
+Copyright (c) 2013 Jamal Fanaian, relased under the MIT license.
+See LICENSE for more information.
