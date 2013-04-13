@@ -1,6 +1,6 @@
 = sinatra-restful
 
-Create RESTful APIs with Sinatra.
+Sinatra extension to make RESTful APIs super simple.
 
 == Status
 
@@ -24,6 +24,8 @@ The following features are currently supported by sinatra-restful:
 
 == Example
 
+Example using the classic style:
+
   require 'rubygems'
   require 'sinatra'
   require 'sinatra/restful'
@@ -42,6 +44,31 @@ The following features are currently supported by sinatra-restful:
   post '/note' do
     # ...
     status 201
+  end
+
+Example using the modular style:
+
+  require 'rubygems'
+  require 'sinatra'
+  require 'sinatra/restful'
+
+  class MyApi < Sinatra::Base
+    register Sinatra::Restful
+    use Sinatra::Rest::Throttle::Qps, :value => 5
+    use Sinatra::Rest::Compression
+
+    get '/note/:id', :version => "1.1" do
+      # ...
+    end
+   
+    get '/note/:id', :version => "1" do
+      # ...
+    end
+   
+    post '/note' do
+      # ...
+      status 201
+    end
   end
 
 == License
