@@ -13,11 +13,12 @@ The following features are currently supported by sinatra-restful:
 * QPS Throttling (currently only by IP, app and user throttling is planned)
 * Compression using Rack::Deflater
 * Versioning
+* JSON Response
 
 == Todo
 
 * OAuth2
-* Support for multiple content types (json, xml, etc.)
+* Support for multiple content types (xml, etc.)
 * Pagination
 * Partial responses
 * Method whitelisting
@@ -34,11 +35,12 @@ Example using the classic style:
   require 'sinatra'
   require 'sinatra/restful'
 
-  use Sinatra::Rest::Throttle::Qps, :value => 5
-  use Sinatra::Rest::Compression
+  use Sinatra::Restful::Throttle::Qps, :value => 5
+  use Sinatra::Restful::Compress
 
   get '/note/:id', :version => "1.1" do
     # ...
+    { :id => 1, :title => "Test note", :content => "..." }
   end
 
   get '/note/:id', :version => "1" do
@@ -53,16 +55,17 @@ Example using the classic style:
 Example using the modular style:
 
   require 'rubygems'
-  require 'sinatra'
+  require 'sinatra/base'
   require 'sinatra/restful'
 
   class MyApi < Sinatra::Base
     register Sinatra::Restful
-    use Sinatra::Rest::Throttle::Qps, :value => 5
-    use Sinatra::Rest::Compression
+    use Sinatra::Restful::Throttle::Qps, :value => 5
+    use Sinatra::Restful::Compress
 
     get '/note/:id', :version => "1.1" do
       # ...
+      { :id => 1, :title => "Test note", :content => "..." }
     end
    
     get '/note/:id', :version => "1" do
@@ -75,7 +78,34 @@ Example using the modular style:
     end
   end
 
+  MyApi.run!
+
+Then, we are ready to make a request!
+
+  $ curl -v http://localhost:4567/v1.1/note/1
+  * About to connect() to localhost port 4567 (#0)
+  *   Trying ::1...
+  * connected
+  * Connected to localhost (::1) port 4567 (#0)
+  > GET /v1.1/note/1 HTTP/1.1
+  > User-Agent: curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0   OpenSSL/0.9.8r zlib/1.2.5
+  > Host: localhost:4567
+  > Accept: */*
+  >
+  < HTTP/1.1 200 OK
+  < Content-Type: application/json;charset=utf-8
+  < Content-Length: 44
+  < Vary: Accept-Encoding
+  < X-Content-Type-Options: nosniff
+  < Server: WEBrick/1.3.1 (Ruby/2.0.0/2013-02-24)
+  < Date: Sat, 13 Apr 2013 15:57:18 GMT
+  < Connection: Keep-Alive
+  <
+  * Connection #0 to host localhost left intact
+  {"id":1,"title":"Test note","content":"..."}
+  * Closing connection #0
+
 == License
 
-Copyright (c) 2013 Jamal Fanaian, relased under the MIT license
-See LICENSE for more information
+Copyright (c) 2013 Jamal Fanaian, relased under the MIT license.
+See LICENSE for more information.
