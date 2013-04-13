@@ -8,7 +8,7 @@ module Sinatra
         VERSION_CHECK = %r{/v([^/]+)} 
 
         module Throttle
-            class Interval < Rack::Throttle::Limiter
+            class Qps < Rack::Throttle::Limiter
                 def initialize(app, options = {})
                     super
                 end
